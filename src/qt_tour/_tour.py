@@ -22,7 +22,18 @@ if TYPE_CHECKING:
 
 
 class TourAnchor(Enum):
-    """Tooltip placement relative to the target widget."""
+    """Tooltip placement relative to the target widget.
+
+    Values
+    ------
+    ```python
+    LEFT = "left"
+    RIGHT = "right"
+    ABOVE = "above"
+    BELOW = "below"
+    CENTER = "center"
+    ```
+    """
 
     LEFT = "left"
     RIGHT = "right"
