@@ -39,6 +39,7 @@ build-backend = "uv_build"
 [dependency-groups]
 dev = [
     "mkdocstrings[python]>=1.0.6",
+    "pillow>=12.3.0",
     "prek>=0.4.13",
     "pyqt6>=6.11.0",
     "pytest>=9.1.1",

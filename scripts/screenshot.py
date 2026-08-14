@@ -3,8 +3,9 @@ from __future__ import annotations
 import sys
 from pathlib import Path
 
+from PIL import Image
 from qtpy.QtCore import Qt, QTimer
-from qtpy.QtGui import QColor, QPalette
+from qtpy.QtGui import QColor, QImage, QPalette, QPixmap
 from qtpy.QtWidgets import QApplication
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
@@ -36,7 +37,43 @@ def _set_dark_palette(app: QApplication) -> None:
     app.setPalette(palette)
 
 
-def _grab(name: str, dark: bool) -> None:
+def _app() -> QApplication:
+    """Return a QApplication instance.
+
+    Returns
+    -------
+    QApplication
+        Existing or newly-created application.
+    """
+    existing_app = QApplication.instance()
+    return (
+        existing_app
+        if isinstance(existing_app, QApplication)
+        else QApplication(sys.argv)
+    )
+
+
+def _pixmap_to_image(pixmap: QPixmap) -> Image.Image:
+    """Convert a Qt pixmap to a Pillow image.
+
+    Parameters
+    ----------
+    pixmap : QPixmap
+        Pixmap to convert.
+
+    Returns
+    -------
+    PIL.Image.Image
+        RGB image.
+    """
+    image = pixmap.toImage().convertToFormat(QImage.Format.Format_RGBA8888)
+    width = image.width()
+    height = image.height()
+    data = image.bits().asstring(width * height * 4)
+    return Image.frombytes("RGBA", (width, height), data).convert("RGB")
+
+
+def _grab_screenshot(name: str, dark: bool) -> None:
     """Grab one themed example screenshot.
 
     Parameters
@@ -46,12 +83,7 @@ def _grab(name: str, dark: bool) -> None:
     dark : bool
         Whether to apply the dark palette.
     """
-    existing_app = QApplication.instance()
-    app = (
-        existing_app
-        if isinstance(existing_app, QApplication)
-        else QApplication(sys.argv)
-    )
+    app = _app()
     app.setStyle("Fusion")
     if dark:
         _set_dark_palette(app)
@@ -72,16 +104,54 @@ def _grab(name: str, dark: bool) -> None:
     app.exec()
 
 
+def _grab_demo_gif() -> None:
+    """Capture a short dark-theme tour walkthrough GIF."""
+    app = _app()
+    app.setStyle("Fusion")
+    _set_dark_palette(app)
+
+    window = Window()
+    window.show()
+    window.start_tour()
+
+    out = Path("docs/images/demo.gif")
+    out.parent.mkdir(parents=True, exist_ok=True)
+    frames: list[Image.Image] = []
+
+    def capture_and_advance() -> None:
+        frames.append(_pixmap_to_image(window.grab()))
+        tour = window._tour
+        if tour is None or tour._tooltip._next.text() == "Finish":
+            frames.append(_pixmap_to_image(window.grab()))
+            frames[0].save(
+                out,
+                save_all=True,
+                append_images=frames[1:],
+                duration=900,
+                loop=0,
+                optimize=True,
+            )
+            window.close()
+            app.quit()
+            return
+        tour._tooltip._next.click()
+        QTimer.singleShot(350, capture_and_advance)
+
+    QTimer.singleShot(350, capture_and_advance)
+    app.exec()
+
+
 def main() -> int:
-    """Capture light and dark example screenshots.
+    """Capture documentation images.
 
     Returns
     -------
     int
         Process exit code.
     """
-    _grab("screenshot-light", dark=False)
-    _grab("screenshot-dark", dark=True)
+    _grab_screenshot("screenshot-light", dark=False)
+    _grab_screenshot("screenshot-dark", dark=True)
+    _grab_demo_gif()
     return 0
 
 
