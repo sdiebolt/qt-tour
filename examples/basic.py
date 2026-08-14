@@ -50,6 +50,16 @@ class Window(QMainWindow):
         assert self.status is not None
         self.status.showMessage("Ready")
 
+        self.setStyleSheet(
+            "#qt_tour_tooltip { "
+            "background: palette(window); "
+            "color: palette(window-text); "
+            "border: 1px solid palette(mid); "
+            "border-radius: 8px; "
+            "}"
+            "#qt_tour_title { font-weight: 700; }"
+        )
+
         self._tour: GuidedTour | None = None
         self.tour_button.clicked.connect(self.start_tour)
 

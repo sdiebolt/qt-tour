@@ -82,18 +82,9 @@ class _TourTooltip(QFrame):
 
     def __init__(self, parent: QWidget) -> None:
         super().__init__(parent)
-        self.setAttribute(Qt.WidgetAttribute.WA_StyledBackground, True)
+        self.setAutoFillBackground(True)
         self.setFrameShape(QFrame.Shape.StyledPanel)
         self.setObjectName("qt_tour_tooltip")
-        self.setStyleSheet(
-            "#qt_tour_tooltip { "
-            "background-color: palette(window); "
-            "color: palette(window-text); "
-            "border: 1px solid palette(mid); "
-            "border-radius: 6px; "
-            "padding: 0; "
-            "}"
-        )
 
         layout = QVBoxLayout(self)
         layout.setContentsMargins(14, 14, 14, 14)
@@ -103,7 +94,7 @@ class _TourTooltip(QFrame):
         self._title.setObjectName("qt_tour_title")
         self._title.setWordWrap(True)
         title_font = QFont(self.font())
-        title_font.setBold(True)
+        title_font.setPointSize(title_font.pointSize() + 1)
         self._title.setFont(title_font)
         layout.addWidget(self._title)
 

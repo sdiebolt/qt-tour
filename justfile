@@ -14,8 +14,8 @@ precommit:
 test:
     QT_QPA_PLATFORM=offscreen uv run pytest
 
-# Capture the README/docs screenshot from the example app.
-screenshot:
+# Capture the README/docs demo GIFs from the example app.
+demo:
     QT_QPA_PLATFORM=offscreen uv run python scripts/screenshot.py
 
 # Build documentation into site/.

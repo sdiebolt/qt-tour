@@ -39,28 +39,20 @@ Escape or Skip closes the tour.
 
 ## Styling
 
-The tooltip is a normal Qt widget. Style it with your application stylesheet:
+The tooltip is a normal Qt widget. Style it with your application stylesheet.
+If you style `#qt_tour_tooltip`, provide the full box style; partial QSS like
+only `border-radius` can disable native background painting in Qt.
 
 ```python
 app.setStyleSheet("""
 #qt_tour_tooltip {
-    background: #2b2b2b;
-    color: white;
-    border: 1px solid #555;
+    background: palette(window);
+    color: palette(window-text);
+    border: 1px solid palette(mid);
     border-radius: 8px;
 }
 #qt_tour_title {
-    font-size: 16px;
-    font-weight: bold;
-}
-#qt_tour_body {
-    color: #ddd;
-}
-#qt_tour_counter {
-    color: #aaa;
-}
-#qt_tour_tooltip QPushButton {
-    padding: 4px 10px;
+    font-weight: 700;
 }
 """)
 ```

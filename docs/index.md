@@ -2,7 +2,8 @@
 
 Small guided tours for Python Qt applications.
 
-![qt-tour demo](images/demo.gif)
+![qt-tour light demo](images/demo-light.gif#only-light)
+![qt-tour dark demo](images/demo-dark.gif#only-dark)
 
 Use it when you want to highlight ordinary `QWidget`s and show a short
 step-by-step popover next to them.

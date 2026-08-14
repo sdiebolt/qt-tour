@@ -6,7 +6,7 @@
 
 Small guided tours for Python Qt applications.
 
-![qt-tour demo](docs/images/demo.gif)
+![qt-tour demo](docs/images/demo-dark.gif)
 
 ```python
 from qt_tour import GuidedTour, TourAnchor, TourStep
