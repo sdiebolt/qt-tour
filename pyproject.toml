@@ -1,0 +1,63 @@
+[project]
+name = "qt-tour"
+version = "0.1.0"
+description = "Small guided tours for Python Qt applications"
+readme = "README.md"
+authors = [
+    { name = "Samuel Le Meur-Diebolt", email = "samuel@diebolt.io" }
+]
+requires-python = ">=3.10"
+license = "BSD-3-Clause"
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Environment :: X11 Applications :: Qt",
+    "Intended Audience :: Developers",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
+    "Programming Language :: Python :: 3 :: Only",
+    "Topic :: Software Development :: User Interfaces",
+    "Typing :: Typed",
+]
+dependencies = [
+    "qtpy>=2.4.3",
+]
+
+[project.urls]
+Homepage = "https://github.com/sdiebolt/qt-tour"
+Documentation = "https://sdiebolt.github.io/qt-tour/"
+Issues = "https://github.com/sdiebolt/qt-tour/issues"
+
+[build-system]
+requires = ["uv_build>=0.12.3,<0.13.0"]
+build-backend = "uv_build"
+
+[dependency-groups]
+dev = [
+    "mkdocstrings[python]>=1.0.6",
+    "prek>=0.4.13",
+    "pyqt6>=6.11.0",
+    "pytest>=9.1.1",
+    "pytest-qt>=4.5.0",
+    "ruff>=0.16.3",
+    "ty>=0.0.71",
+    "zensical>=0.0.54",
+]
+
+[tool.pytest.ini_options]
+addopts = "-q"
+testpaths = ["tests"]
+
+[tool.ruff]
+line-length = 88
+src = ["src", "tests", "examples"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "RUF"]
+
+[tool.ty.environment]
+python = "./.venv/bin/python"

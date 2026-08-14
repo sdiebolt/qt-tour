@@ -1,0 +1,67 @@
+[project]
+site_name = "qt-tour"
+site_url = "https://sdiebolt.github.io/qt-tour/"
+site_description = "Small guided tours for Python Qt applications."
+site_author = "Samuel Le Meur-Diebolt"
+copyright = "Copyright © 2026 Samuel Le Meur-Diebolt"
+docs_dir = "docs"
+site_dir = "site"
+repo_url = "https://github.com/sdiebolt/qt-tour"
+repo_name = "sdiebolt/qt-tour"
+edit_uri = "edit/main/docs/"
+nav = [
+    { "Home" = "index.md" },
+    { "Usage" = "usage.md" },
+    { "API Reference" = "api.md" },
+]
+
+[project.theme]
+variant = "modern"
+language = "en"
+features = [
+    "navigation.sections",
+    "navigation.expand",
+    "toc.follow",
+    "search.highlight",
+    "content.code.copy",
+]
+
+[project.theme.icon]
+repo = "fontawesome/brands/github"
+
+[[project.theme.palette]]
+scheme = "slate"
+primary = "custom"
+accent = "custom"
+toggle.icon = "lucide/moon"
+toggle.name = "Switch to light mode"
+
+[[project.theme.palette]]
+scheme = "default"
+primary = "custom"
+accent = "custom"
+toggle.icon = "lucide/sun"
+toggle.name = "Switch to dark mode"
+
+[project.plugins.mkdocstrings.handlers.python]
+paths = ["src"]
+
+[project.plugins.mkdocstrings.handlers.python.options]
+docstring_style = "numpy"
+members_order = "source"
+show_source = false
+filters = ["!^_"]
+show_root_heading = true
+show_root_toc_entry = true
+show_root_full_path = false
+show_object_full_path = false
+show_signature_annotations = true
+annotations_path = "brief"
+
+[project.markdown_extensions.pymdownx.highlight]
+pygments_lang_class = true
+
+[project.markdown_extensions.pymdownx.superfences]
+[project.markdown_extensions.pymdownx.inlinehilite]
+[project.markdown_extensions.toc]
+permalink = true
