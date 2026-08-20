@@ -1,6 +1,6 @@
 [project]
 name = "qt-tour"
-version = "0.2.1"
+version = "0.2.2"
 description = "Small guided tours for Python Qt applications"
 readme = "README.md"
 authors = [
